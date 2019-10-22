@@ -1,0 +1,78 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}
+search
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/list.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'main/github-markdown.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'main/js/showdown.min.js' %}"></script>
+<script src="{% static 'main/js/list.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% if object_list %}
+<div id="notes_div" class="">
+    {% for note in object_list %}
+    <div class="card field">
+        <header class="card-header">
+            <a class="card-header-title is-size-3 has-text-warning" href="/{{ note.key }}">
+                {{ note.key }}
+            </a>
+            <p href="#" class="card-header-icon  has-text-warning">
+                {{ note.markdown_time|date:'Y-m-d H:i:s'  }}
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="content markdown-body note_digest">
+                <input type="hidden" name="variable" value="{{ note.markdown |safe }}">
+            </div>
+            <div class="tags">
+                {% for tag in note.tags.all %}
+                <span class="tag is-primary">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="/{{ note.key }}" class="card-footer-item has-text-primary">Go</a>
+            {% if user.is_authenticated %}
+            <a href="/{{ note.key }}/edit" class="card-footer-item has-text-primary">Edit</a>
+            <a href="/{{ note.key }}/delete" class="card-footer-item has-text-primary">Delete</a>
+            <a href="/{{ note.key }}/info" class="card-footer-item has-text-primary">Info</a>
+            {% endif %}
+        </footer>
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<h1> there is nothing</h1>
+{% endif %}
+{% if is_paginated %}
+<nav class="pagination is-centered pt-p5mm" role="navigation" aria-label="pagination">
+    {% if page_obj.has_previous %}
+    <a class="pagination-previous" href="?key={{ key }}&page={{ page_obj.previous_page_number }}">Previous</a>
+    {% else %}
+    <a class="pagination-previous" disabled>Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a class="pagination-next" href="?key={{ key }}&page={{ page_obj.next_page_number }}">Next</a>
+    {% else %}
+    <a class="pagination-next" disabled >Next</a>
+    {% endif %}
+    <ul class="pagination-list">
+        {% for pg in page_obj.paginator.page_range %}
+        {% if page_obj.number == pg %}
+        <li><a class="pagination-link  is-current" aria-label="current">{{ pg }}</a></li>
+        {% else %}
+        <li><a class="pagination-link" aria-label="Goto page {{ pg }}" href="?key={{ key }}&page={{ pg }}">{{ pg }}</a></li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

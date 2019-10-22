@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ object.key }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/github-markdown.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'ego/js/showdown.min.js' %}"></script>
+<script src="{% static 'ego/js/note.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="note_key_div" class="columns">
+    <h1 id="note_key_header" class="column is-10 is-size-3 is-paddingless">{{ object.key }}</h1>
+    {% if user.is_authenticated %}
+    <a class="base_revcolor column is-1" href="{% url 'note-edit' object.key %}">Edit</a>
+    <a class="base_revcolor column is-1" href="#">Info</a>
+    {% endif%}
+</div>
+<hr id="note_key_hr" />
+<div id="note_content_div" class="content markdown-body height_rest">
+    <input type="hidden" id="mdraw" name="variable" value="{{ object.markdown |safe }}">
+</div>
+<div class="columns">
+    <div id="note_tags_div" class="column is-10 tags are-medium">
+        {% for tag in object.tags.all %}
+        <span class="tag is-warning">{{ tag.name }}</span>
+        {% endfor %}
+    </div>
+    <div class="column">
+        <span class="tag is-warning is-medium">{{ object.markdown_time|date:'Y-m-d H:i:s' }}</span>
+    </div>
+</div>
+
+{% endblock %}

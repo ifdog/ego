@@ -1,0 +1,179 @@
+.base_color {
+    color: transparent;
+    background-color: #f2855e;
+}
+
+.base_revcolor {
+    color: #f2855e;
+    background-color: transparent;
+}
+
+#base_div {
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+
+#logo_img{
+    display: inline-block;
+    position: relative;
+    animation: float 2s ease-in-out 0s infinite alternate;
+    -moz-animation: float 1s ease-in-out 0s infinite alternate;
+    z-index: 9999;
+}
+
+
+@keyframes float {
+    from {
+        transform: translateY(0)
+    }
+    to {
+        transform: translateY(5px)
+    }
+
+}
+
+#base_header {
+    background-color: #194769;
+    height: 40mm;
+    width: auto;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+
+#base_content {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-flow: column;
+}
+
+.height_auto{
+    flex: 0 1 auto;
+}
+
+.height_rest{
+    flex: 1 1 auto;
+}
+
+
+.pl-p1 {
+    padding-left: 1%;
+}
+
+.pr-p1 {
+    padding-right: 1%;
+}
+
+.pt-p1 {
+    padding-top: 1%;
+}
+.pt-p5mm {
+    padding-top: 5mm;
+}
+.pb-p1 {
+    padding-bottom: 1%;
+}
+
+.center-content {
+    margin: 0 auto;
+}
+
+
+#edit_key_div
+{
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#edit_key_header
+{
+  color: #f2855e;
+  background-color: white;
+  font-weight: bold;
+}
+
+#edit_key_hr
+{
+  color: #f2855e;
+  height:1px;
+  border-top:1px dashed #194769;
+  margin-top: 0%;
+}
+
+#edit_html_div{
+    display: flex;
+    flex-flow: column;
+}
+
+#edit_md_div{
+    display: flex;
+    flex-flow: column;
+}
+
+#notes_div{
+    background-color: white;
+ 
+}
+.note_digest{
+    overflow-y: auto;
+    max-height: 50mm;
+}
+
+#login_form_table{
+    align:center
+}
+
+
+.cont
+{
+  background-color: #ff8;
+  padding :20px;
+  border-radius: 6px;
+}
+
+#note_key_div
+{
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#note_key_header
+{
+  color: #f2855e;
+  background-color: white;
+  font-weight: bold;
+}
+
+#note_key_hr
+{
+  color: #f2855e;
+  height:1px;
+  border-top:1px dashed #194769;
+  margin-top: 0%;
+}
+
+#note_content_div
+{
+  margin-top: 5mm;
+  margin-left: 0mm;
+  margin-right: 0mm;
+  margin-bottom: 5mm;
+  border: 0;
+  padding: 0;
+  display: block;
+}
+
+#note_tags_div{
+    padding-top: 1em;
+}
+
+.full_width{
+    width: 100%;
+}

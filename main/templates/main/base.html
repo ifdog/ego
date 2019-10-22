@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/ego.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/mystyles.css' %}" />
+    {% block css %}
+    {% endblock %}
+    <script src="{% static 'ego/js/ego.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.ico' %}">
+</head>
+
+<body>
+    <div id="base_div" class="is-flex-fullhd">
+        <div id="base_header" class="has-text-centered">
+            <img id="logo_img" class="mx-auto pt-3" src="{% static 'main/img/logo.png' %}" alt="Saturn" />
+        </div>
+        <nav class="navbar is-warning pl-p1 pr-p1" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item">Ego</a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicItems">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbarBasicItems" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="/">Meta</a>
+                    <a class="navbar-item" href="/State">State</a>
+                    <a class="navbar-item" href="/Documentation">Documentation</a>
+                </div>
+                <form method="get" action="/notes/query">
+                    <div class="navbar-end">
+                        {% if not user.is_authenticated %}
+                        <a class="navbar-item" href="{% url 'login' %}?next={{ request.path }}"> Login </a>
+                        {% else %}
+                        <p class="navbar-item"> Welcome {{user.get_username}} ! </p>
+                        <a class="navbar-item" href="{% url 'logout' %}?next={{ request.path }}"> Logout </a>
+                        {% endif %}
+                        <div class="navbar-item field has-addons">
+                            <div class="control">
+                                <input name="key" required class="input" type="text" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                            <div class="control">
+                                <button class="button is-light is-outlined">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <br />
+        <div id="base_content" class="height_rest">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer class="footer">
+            <div class="content has-text-centered is-paddingless">
+                <p class="is-marginless">
+                    <a class="text-white is-marginless" href="https://www.djangoproject.com/" target="djangoproject">
+                        <img src="{% static 'main/img/djangopowered.gif' %}" alt="django" />
+                    </a>
+                </p>
+                <p class="is-marginless has-text-white">
+                    ego 0.1 @ <a class="has-text-white" href="mailto:ifdog@outlook.com" target="ifdog"
+                        title="联系方式">ifdog@outlook.com</a>
+                </p>
+
+                <p class="is-marginless">
+                    <a class="has-text-white" href="http://www.beian.miit.gov.cn" target="工信部"
+                        title="备案信息">辽ICP备19009146号</a>
+                </p>
+                <p class="is-marginless has-text-white">
+                    Except where otherwise noted,
+                    content on this site is licensed under a <a class="has-text-warning"
+                        href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution
+                        4.0 International license.</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

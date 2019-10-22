@@ -1,0 +1,56 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ form.key.value }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/github-markdown.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/edit.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'ego/js/showdown.min.js' %}"></script>
+<script src="{% static 'ego/js/autosize.min.js' %}"></script>
+<script src="{% static 'ego/js/edit.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="edit_key_div" class="columns">
+    <h1 id="edit_key_header" class="column is-6 is-size-3 is-paddingless">{{ form.key.value }}</h1>
+    <a id="edit_showhide_lb" class="base_revcolor column is-1" href="#">Hide</a>
+    <a id="edit_commit_lb" class="base_revcolor column is-1" href="#">Commit</a>
+    <a id="edit_save_lb" class="base_revcolor column is-1" href="#">Save</a>
+    <a id="edit_discard_lb" class="base_revcolor column is-1" href="#">discard</a>
+    <a id="edit_back_lb" class="base_revcolor column is-1" href="/{{ form.key.value }}">Back</a>
+    <a id="edit_info_lb" class="base_revcolor column is-1" href="#">Info</a>
+</div>
+<hr id="note_key_hr" />
+<div id="edit_content_div" class="columns height_rest">
+    <div id=edit_html_div class="column is-half">
+        <div id="edit_html" class="content markdown-body"></div>
+    </div>
+    <div id="edit_md_div" class="column">
+        <form id="edit_form" method="post">
+            {% csrf_token %}
+            {{ form.content }}
+            {{ form.key }}
+            {{ form.tags }}
+        </form>
+    </div>
+</div>
+<div class="columns">
+    <div id="edit_tags_div" class="column buttons is-half"></div>
+    <div id="edit_addtag_div" class="column field has-addons is-half">
+        <div class="control is-expanded">
+            <input list="edit_addtag_data" id="edit_addtag_input" type="text" class="input" placeholder="tags here">
+        </div>
+        <div class="control">
+            <a id="edit_addtag_bn" class="button is-info">Add</a>
+        </div>
+    </div>
+    <datalist id="edit_addtag_data"></datalist>
+</div>
+{% endblock %}
+
